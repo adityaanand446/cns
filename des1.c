@@ -92,3 +92,45 @@ int main()
 	}
 	return 0;
 }
+/*
+enter key
+1 3 3 4 5 7 7 9 9 b b c d f f 1
+
+
+Output:
+After applying permuted choice 1:
+11110000110011001010101011110101010101100110011110001111
+Round 1:
+Key:1b02effc7072
+Round 2:
+Key:79aed9dbc9e5
+Round 3:
+Key:55fc8a42cf99
+Round 4:
+Key:72add6db351d
+Round 5:
+Key:7cec07eb53a8
+Round 6:
+Key:63a53e507b2f
+Round 7:
+Key:ec84b7f618bc
+Round 8:
+Key:f78a3ac13bfb
+Round 9:
+Key:e0dbebede781
+Round 10:
+Key:b1f347ba464f
+Round 11:
+Key:215fd3ded386
+Round 12:
+Key:7571f59467e9
+Round 13:
+Key:97c5d1faba41
+Round 14:
+Key:5f43b7f2e73a
+Round 15:
+Key:bf918d3d3f0a
+Round 16:
+Key:cb3d8b0e17f5
+*/
+
