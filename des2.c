@@ -91,3 +91,21 @@ int main()
 	
 	return 0;
 }
+	
+/*
+	
+input:
+
+output of i-1 th round: c c 0 0 c c f f f 0 a a f 0 a a
+key for i th round    : 1 b 0 2 e f f c 7 0 7 2 
+
+output:
+
+input to s-box of i th round: 6117ba866527
+
+*/
+
+
+	
+	
+	
