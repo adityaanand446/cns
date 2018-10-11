@@ -1,104 +1,86 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<math.h>
+
 int main()
 {
-int len,len1,i,j,n,c=0,n1,key1[10],key2[10],small;
-char key[10],pt[50],mat[100][100],temp[10],t,ct[50];
-printf("Enter the key\n");
-scanf("%s",key);
-len=strlen(key);
-printf("Enter the plain text\n");
-scanf("%s",pt);
-len1=strlen(pt);
-n1=len1%len;
-if(n1==0)
-    n=len1/len;
-else
-    n=(len1/len)+1;
-for(i=0;i<(len-n1);i++)
-    pt[len1-1+(len-n1)-i]='z'-i;
-printf("%s\n",pt);
-for(i=0;i<n;i++)
-	for(j=0;j<len;j++)
-		mat[i][j]=pt[c++];	
-for(i=0;i<n;i++)
-   {
-        for(j=0;j<len;j++)
-		{
-			printf("%c ",mat[i][j]);
-		}
-	printf("\n");
-   }
-for(i=0;i<len;i++)
-  temp[i]=key[i];
-for(i=0;i<len;i++)
-	for(j=len-1;j>i;j--)
-		if(temp[j]<temp[j-1])
-			{
-				t=temp[j];
-				temp[j]=temp[j-1];
-				temp[j-1]=t;
-			}
-printf("%s\n",temp);
-c=0;
-for(i=0;i<len;i++)
-	key1[i]=999;
-for(i=0;i<len;i++)
-	for(j=0;j<len;j++)
-		if(temp[i]==key[j])
-		   if(key1[j]==999)
-			key1[j]=c++;
-for(i=0;i<len;i++)
-  printf("%d ",key1[i]);
-printf("\n");
-printf("Encrypted Text\n");
-for(i=0;i<len;i++)
-	key2[i]=key1[i];
-n1=0;
-for(i=0;i<len;i++)
+	char plaintext[100],ciphertext[100],matrix[100][100];
+	int pllen,ciphlen=0,keylen,i,j,k,m=0,key[100],col,count,b;
+	double rows;
+	printf("Enter plaintext\n");
+	scanf("%s",plaintext);
+	
+	printf("Enter keylength\n");
+	scanf("%d",&keylen);
+	
+	printf("Enter key\n");								
+	for(i=0;i<keylen;i++)
+	scanf("%d",&key[i]);
+	
+	pllen=strlen(plaintext);
+	rows=ceil((double)pllen/keylen);
+	
+	count=pllen;
+	while(count!=(keylen*rows))
 	{
-		small=99;
-		for(j=0;j<len;j++)
+		plaintext[count]='x';
+		count++;
+	}
+	for(i=0;i<rows;i++)
+		for(j=0;j<keylen;j++)
+			matrix[i][j]=plaintext[m++];
+	
+	for(i=1;i<=keylen;i++)
+	{
+		for(j=0;j<keylen;j++)
+		{
+			if(key[j]==i)
 			{
-				if(key2[j]<small)
-				{		
-					small=key2[j];
-					c=j;
-				}
+				col=j;
+				break;
 			}
-		key2[c]=999;
-		for(j=0;j<n;j++)
+		}
+		for(k=0;k<rows;k++)
+			ciphertext[ciphlen++]=matrix[k][j];
+	}
+	printf("\nTraspostion matrix:\n");
+	for(i=0;i<keylen;i++)
+		printf("%d ",key[i]);
+	printf("\n");
+	for(i=0;i<rows;i++)
+	{
+		for(j=0;j<keylen;j++)
+			printf("%c ",matrix[i][j]);
+		printf("\n");
+	}
+	printf("Encryption:\n\tCiphertext:");
+	for(i=0;i<ciphlen;i++)
+	{
+		printf("%c",ciphertext[i]);
+	}
+	printf("\n");
+	m=0;b=0;
+	for(i=1;i<=keylen;i++)
+	{
+		for(j=0;j<keylen;j++)
+		{
+			if(i==key[j])
 			{
-			printf("%c",mat[j][c]);
-			ct[n1++]=mat[j][c];
+				col=j;
+				break;
 			}
-	}		
-printf("\n");
-
-for(i=0;i<len;i++)
-        key2[i]=key1[i];
-n1=0;
-for(i=0;i<len;i++)
-        {
-                small=99;
-                for(j=0;j<len;j++)
-                        {
-                                if(key2[j]<small)
-                                {
-                                        small=key2[j];
-                                        c=j;
-                                }
-                        }
-                key2[c]=999;
-                for(j=0;j<n;j++)
-                        {
-                        mat[j][c]=ct[n1++];
-                        }
-        }
-printf("DECRYPTED TEXT\n");
-for(i=0;i<n;i++)
-	for(j=0;j<len;j++)
-		printf("%c",mat[i][j]);
-printf("\n");
+		}
+		for(k=0;k<rows;k++)
+			matrix[k][j]=ciphertext[m++];
+	}
+	for(i=0;i<rows;i++)
+		for(j=0;j<keylen;j++)
+			plaintext[b++]=matrix[i][j];
+	
+	printf("Decryption:\n\tPlaintext :");
+	
+	for(i=0;i<pllen;i++)
+		printf("%c",plaintext[i]);
+	printf("\n");
 }
